@@ -1,69 +1,62 @@
-# Seven.io SMS Plugin for NocoBase
+<p align="center">
+  <img src="https://www.seven.io/wp-content/uploads/Logo.svg" width="250" alt="seven logo" />
+</p>
 
-A NocoBase plugin that integrates [Seven.io](https://seven.io) SMS services for user verification and authentication workflows.
+<h1 align="center">seven SMS for NocoBase</h1>
 
-## What it does
+<p align="center">
+  Plug seven into <a href="https://www.nocobase.com/">NocoBase</a> as an SMS provider for user verification, 2FA and password-reset flows.
+</p>
 
-This plugin adds Seven.io as an SMS provider option for NocoBase's verification system, enabling you to:
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-teal.svg" alt="MIT License" /></a>
+  <img src="https://img.shields.io/badge/NocoBase-1.x-blue" alt="NocoBase 1.x" />
+  <a href="https://www.npmjs.com/package/@seven.io/plugin-nocobase"><img src="https://img.shields.io/npm/v/@seven.io/plugin-nocobase" alt="npm" /></a>
+</p>
 
-- Send SMS verification codes during user registration
-- Send SMS codes for two-factor authentication 
-- Send SMS codes for password reset flows
-- Use Seven.io's reliable SMS gateway for all verification workflows
+---
+
+## Features
+
+- **Registration Verification** - SMS code on signup
+- **Two-Factor Authentication** - SMS-based 2FA codes
+- **Password Reset** - Verification codes for the reset flow
+- **Custom Workflows** - Reusable across any custom verification you build in NocoBase
 
 ## Prerequisites
 
-- NocoBase application (v1.x)
-- Seven.io account and API key ([Sign up here](https://seven.io))
+- A [NocoBase](https://www.nocobase.com/) 1.x installation
+- A [seven account](https://www.seven.io/) with API key ([How to get your API key](https://help.seven.io/en/developer/where-do-i-find-my-api-key))
 
 ## Installation
 
-1. Install the plugin in your NocoBase application:
-   ```bash
-   npm install @seven.io/plugin-nocobase
-   ```
+```bash
+npm install @seven.io/plugin-nocobase
+```
 
-2. Add the plugin to your NocoBase application configuration.
+Register the plugin with your NocoBase application config.
 
 ## Configuration
 
-1. **Get your Seven.io API key**:
-   - Sign up at [seven.io](https://seven.io)
-   - Navigate to your dashboard and copy your API key
+1. Open the NocoBase admin and go to **Plugin Manager**.
+2. Find *Seven SMS* and enable it.
+3. Open **Settings > Verification**.
+4. Pick *Seven SMS* as the SMS provider.
+5. Paste your seven API key.
 
-2. **Enable the plugin in NocoBase**:
-   - Go to your NocoBase admin panel
-   - Navigate to Plugin Manager
-   - Find "Seven SMS" plugin and enable it
+## Architecture
 
-3. **Configure SMS verification settings**:
-   - Go to Settings → Verification
-   - Select "Seven SMS" as your SMS provider
-   - Enter your Seven.io API key
-   - Configure other verification settings as needed
+The plugin registers a custom `SMSProvider` (identifier `seven`) with NocoBase's verification subsystem. Sends are dispatched against:
 
-## Usage
-
-Once configured, the Seven.io SMS provider will automatically handle SMS sending for:
-
-- User registration verification
-- Login verification (if 2FA is enabled)
-- Password reset verification
-- Any custom verification workflows you've built
-
-## API Configuration
-
-The plugin uses Seven.io's REST API with the following endpoint:
-- **URL**: `https://gateway.seven.io/api/sms`
-- **Method**: POST
-- **Authentication**: API key via `x-api-key` header
+```
+POST https://gateway.seven.io/api/sms
+x-api-key: <your seven API key>
+```
 
 ## Support
 
-- [Seven.io Documentation](https://docs.seven.io)
-- [Seven.io Support](https://seven.io/support)
-- [NocoBase Documentation](https://docs.nocobase.com)
+Need help? Feel free to [contact us](https://www.seven.io/en/company/contact/) or [open an issue](https://github.com/seven-io/nocobase/issues).
 
 ## License
 
-This plugin is distributed under the same license as your NocoBase application.
+[MIT](LICENSE)
